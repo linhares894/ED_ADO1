@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Exercicio;
+package exercicio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,82 +19,88 @@ public class Principal {
     
     public static void main(String[] args) {
      
-    ListaSimples ListaCarros = new ListaSimples();
+    ListaSimples listaCarros = new ListaSimples();
     
-    Opcoes(ListaCarros);
+        try {
+            Opcoes(listaCarros);
+        } catch (ParseException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
-    static void Opcoes(ListaSimples list){
+    static void Opcoes(ListaSimples lista) throws ParseException{
         
-        int opcoes;
+        int opcoes = 0;
+        
+        Scanner leitor = new Scanner(System.in);
+        
+        
         
         do{
-            System.out.println(">>> MENU <<<<");
-            System.out.println("1- Adicionar carro comeco da lista "
-                    +"2 - Adicionar carro final da lista"
-                    +"3 - Pesquisar o carro pelo modelo"
-                    +"4 - Mostar a lista"
-                    +"5 - Remover carro pelo modelo"
-                    +"6 - Excluir tudo"
-                    +"7 - Sair do sistema");
+            System.out.println("Escolha umas das opções abaixo:");
             
-            System.out.println("Escolha uma das opcoes acima");
+            System.out.println("");
+            
+            System.out.println(">>> CAR MENU<<<<");
+            System.out.println("1- Adicionar carro no comeco da lista"
+                    +"2 - Adicionar carro no final da lista \n"
+                    +"3 - Pesquisar o carro pelo modelo \n"
+                    +"4 - Mostrar a lista de carros adicionados \n"
+                    +"5 - Remover carro pelo modelo \n"
+                    +"6 - Excluir tudo \n"
+                    +"7 - Sair do sistema \n");
+            
+            opcoes = leitor.nextInt();
+            
+            
             
             switch(opcoes){
                 
                 case 1:
                     // adicionando carro no comeco da lista
                     Carros carros = setCar();
-                    list.inserirPrimeiro(carros);
+                    lista.inserirPrimeiro(carros);
                     carros = null;
                     break;
                 
                 case 2:
                     //adicionando carro no fim da lista
                     carros = setCar();
-                    list.inserirUltimo(carros);
+                    lista.inserirUltimo(carros);
                     carros = null;
                     break;
                 
                 case 3:
                     //pesquisando pelo modelo
-                    searchCarByModelo(list);
+                    searchCarByModelo(lista);
                     break;
                 
                 case 4:
                     // mostrar a lista
-                    System.out.println(list.impimirLista());
+                    System.out.println(lista.impimirLista());
                     break;
                 
                 case 5:
                     // removendo carro pelo modelo
-                    list = removeCarByModelo(list);
+                    lista = removeCarByModelo(lista);
                     break;
                     
                 case 6:
                     // removendo tudo
-                    list = removeAll(list);
+                    lista = removeAll(lista);
                     break;
                 
                 case 7:
                     // sair do sistema
                     System.out.println("Voce saiu do sistema");
-                    break;
+                    System.exit(0);
             }
             
-        } while (opcoes != 7);
+        } while (true);
     }
     
-        static int inputCheck() {
-
-        Scanner read = new Scanner(System.in);
-
-        String option = read.nextLine();
-        return 0;
-        }
-    
-    static Carros setCar() {
+    static Carros setCar() throws ParseException {
 
         Scanner leitor = new Scanner(System.in);
 
@@ -103,13 +113,21 @@ public class Principal {
 
         System.out.print("Marca: ");
         car.setMarca(leitor.nextLine());
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 
         System.out.print("Ano: ");
-        car.setAno(yearCheck());
+        
+        String ano = leitor.nextLine();
+        sdf.format(ano);
+        car.setAno(sdf.parse(ano));
+        
+        //car.setAno(yearCheck());
 
         return car;
     }
-
+    
+    // metodo pra checar o ano do carro
     static int yearCheck() {
 
         Scanner leitor = new Scanner(System.in);
@@ -117,7 +135,7 @@ public class Principal {
         String year = leitor.nextLine();
 
         if (!year.matches("\\d+")) {
-            System.out.println("Nao e numero.");
+            System.out.println("Dado informado não é numérico");
             yearCheck();
         }
 
@@ -125,40 +143,40 @@ public class Principal {
         return yearNum;
     }
     // metodo pesquisar pelo modelo
-    static void searchCarByModelo(ListaSimples list) {
+    static void searchCarByModelo(ListaSimples lista) {
 
         Scanner leitor = new Scanner(System.in);
 
         System.out.print("Modelo: ");
-        String result = list.pesquisarNo(leitor.nextLine());
+        String result = lista.pesquisarNo(leitor.nextLine());
 
         System.out.println(result);
     }
     // metodo de remover carro pelo modelo
-    static ListaSimples removeCarByModelo(ListaSimples list) {
+    static ListaSimples removeCarByModelo(ListaSimples lista) {
 
         Scanner leitor = new Scanner(System.in);
         System.out.println("Remover carro");
         System.out.print("Modelo: ");
-        boolean isRemoved = list.removerNo(leitor.nextLine());
+        boolean isRemoved = lista.removerNo(leitor.nextLine());
 
         if (isRemoved) {
             System.out.println("Esse carro foi removido do sistema.");
-            return list;
+            return lista;
         } else {
             System.out.println("Não foi encontrado esse carro.");
-            return list;
+            return lista;
         }
     }
     // metodo remover tudo
-    static ListaSimples removeAll(ListaSimples list) {
+    static ListaSimples removeAll(ListaSimples lista) {
 
-        if (!list.isEmpty()) {
+        if (!lista.isEmpty()) {
             System.out.println("A lista de carros foi apagada.");
             return new ListaSimples();
         } else {
             System.out.println("Não possui nenhum carro na lista.");
-            return list;
+            return lista;
         }
     }
 }

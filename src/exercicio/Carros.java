@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ED_ADO1;
+package exercicio;
+
+import java.util.Date;
 
 /**
  *
@@ -13,7 +15,7 @@ public class Carros {
     
     private String marca;
     private String modelo;
-    private int ano;
+    private Date ano;
 
     public String getMarca() {
         return marca;
@@ -31,11 +33,11 @@ public class Carros {
         this.modelo = modelo;
     }
 
-    public int getAno() {
+    public Date getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(Date ano) {
         this.ano = ano;
     }
     

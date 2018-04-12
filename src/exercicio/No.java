@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ED_ADO1;
+package exercicio;
 
 /**
  *
@@ -11,20 +11,20 @@ package ED_ADO1;
  */
 public class No {
     
-    private Carros c;
+    private Carros carro;
     private No prox;
 
     public No(Carros car) {
-        this.c = car;
+        this.carro = car;
         this.prox = null;
     }
 
-    public Carros getC() {
-        return c;
+    public Carros getCarro() {
+        return carro;
     }
 
-    public void setC(Carros c) {
-        this.c = c;
+    public void setCarro(Carros carro) {
+        this.carro = carro;
     }
 
     public No getProx() {

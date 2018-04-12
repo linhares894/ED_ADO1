@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ED_ADO1;
+package exercicio;
 
 /**
  *
@@ -50,8 +50,8 @@ public class ListaSimples {
         return (this.prim == null);
     }
 
-    public void inserirPrimeiro(Carros c) {
-        No novoNo = new No(c);
+    public void inserirPrimeiro(Carros carro) {
+        No novoNo = new No(carro);
         if (this.isEmpty()) {
             this.ult = novoNo;
         }
@@ -60,8 +60,8 @@ public class ListaSimples {
         this.qtdNo++;
     }
 
-    public void inserirUltimo(Carros c) {
-        No novoNo = new No(c);
+    public void inserirUltimo(Carros carro) {
+        No novoNo = new No(carro);
         if (this.isEmpty()) {
             this.prim = novoNo;
         } else {
@@ -77,7 +77,7 @@ public class ListaSimples {
         if (this.isEmpty()) {
             return false;
         } else {
-            while (atual != null && (!atual.getC().getModelo().equalsIgnoreCase(modelo))) {
+            while (atual != null && (!atual.getCarro().getModelo().equalsIgnoreCase(modelo))) {
                 anterior = atual;
                 atual = atual.getProx();
             }
@@ -102,13 +102,17 @@ public class ListaSimples {
         String msg = "";
         No atual = this.prim;
 
-        while (atual != null && (!atual.getC().getModelo().equalsIgnoreCase(modelo))) {
+        while (atual != null) {
+            if(atual.getCarro().getModelo().equalsIgnoreCase(modelo)){
+                msg = "Modelo: " + atual.getCarro().getModelo() + "\n"
+                + "Marca: " + atual.getCarro().getMarca() + "\n"
+                + "Ano: " + atual.getCarro().getAno();
+                return msg;
+            }
             atual = atual.getProx();
         }
-
-        return msg = "Modelo: " + atual.getC().getModelo() + "\n"
-                + "Marca: " + atual.getC().getMarca() + "\n"
-                + "Ano: " + atual.getC().getAno();
+        
+        return "Nenhum modelo encontrado";
     }
 
     public String impimirLista() {
@@ -118,9 +122,9 @@ public class ListaSimples {
         } else {
             No atual = this.prim;
             while (atual != null) {
-                msg += "Modelo: " + atual.getC().getModelo() + "\n"
-                        + "Marca: " + atual.getC().getMarca() + "\n"
-                        + "Ano: " + atual.getC().getAno() + "\n\n";
+                msg += "Modelo: " + atual.getCarro().getModelo() + "\n"
+                        + "Marca: " + atual.getCarro().getMarca() + "\n"
+                        + "Ano: " + atual.getCarro().getAno() + "\n\n";
                 atual = atual.getProx();
             }
         }
