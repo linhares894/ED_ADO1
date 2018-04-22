@@ -43,7 +43,7 @@ public class Principal {
             System.out.println("");
             
             System.out.println(">>> CAR MENU<<<<");
-            System.out.println("1- Adicionar carro no comeco da lista"
+            System.out.println("1- Adicionar carro no comeco da lista \n"
                     +"2 - Adicionar carro no final da lista \n"
                     +"3 - Pesquisar o carro pelo modelo \n"
                     +"4 - Mostrar a lista de carros adicionados \n"
@@ -73,7 +73,7 @@ public class Principal {
                 
                 case 3:
                     //pesquisando pelo modelo
-                    searchCarByModelo(lista);
+                    Funcoes.searchCarByModelo(lista);
                     break;
                 
                 case 4:
@@ -83,12 +83,12 @@ public class Principal {
                 
                 case 5:
                     // removendo carro pelo modelo
-                    lista = removeCarByModelo(lista);
+                    lista = Funcoes.removeCarByModelo(lista);
                     break;
                     
                 case 6:
                     // removendo tudo
-                    lista = removeAll(lista);
+                    lista = Funcoes.removeAll(lista);
                     break;
                 
                 case 7:
@@ -118,65 +118,17 @@ public class Principal {
 
         System.out.print("Ano: ");
         
-        String ano = leitor.nextLine();
-        sdf.format(ano);
-        car.setAno(sdf.parse(ano));
-        
-        //car.setAno(yearCheck());
+        while(true){
+            try{
+                String ano = leitor.nextLine();
+                car.setAno(sdf.parse(ano));
+                break;
+            } catch(Exception e){
+                System.out.println("Valor de data informada invalida \n");
+                System.out.println("Digite novamente o ano");
+            } 
+        }
 
         return car;
-    }
-    
-    // metodo pra checar o ano do carro
-    static int yearCheck() {
-
-        Scanner leitor = new Scanner(System.in);
-
-        String year = leitor.nextLine();
-
-        if (!year.matches("\\d+")) {
-            System.out.println("Dado informado não é numérico");
-            yearCheck();
-        }
-
-        int yearNum = Integer.parseInt(year);
-        return yearNum;
-    }
-    // metodo pesquisar pelo modelo
-    static void searchCarByModelo(ListaSimples lista) {
-
-        Scanner leitor = new Scanner(System.in);
-
-        System.out.print("Modelo: ");
-        String result = lista.pesquisarNo(leitor.nextLine());
-
-        System.out.println(result);
-    }
-    // metodo de remover carro pelo modelo
-    static ListaSimples removeCarByModelo(ListaSimples lista) {
-
-        Scanner leitor = new Scanner(System.in);
-        System.out.println("Remover carro");
-        System.out.print("Modelo: ");
-        boolean isRemoved = lista.removerNo(leitor.nextLine());
-
-        if (isRemoved) {
-            System.out.println("Esse carro foi removido do sistema.");
-            return lista;
-        } else {
-            System.out.println("Não foi encontrado esse carro.");
-            return lista;
-        }
-    }
-    // metodo remover tudo
-    static ListaSimples removeAll(ListaSimples lista) {
-
-        if (!lista.isEmpty()) {
-            System.out.println("A lista de carros foi apagada.");
-            return new ListaSimples();
-        } else {
-            System.out.println("Não possui nenhum carro na lista.");
-            return lista;
-        }
     }
 }

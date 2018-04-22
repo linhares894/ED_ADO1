@@ -5,6 +5,8 @@
  */
 package exercicio;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Gabriel Linhares <glinhares@engebras.com.br>
@@ -116,6 +118,7 @@ public class ListaSimples {
     }
 
     public String impimirLista() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         String msg = "";
         if (this.isEmpty()) {
             msg = "Lista vazia";
@@ -124,7 +127,7 @@ public class ListaSimples {
             while (atual != null) {
                 msg += "Modelo: " + atual.getCarro().getModelo() + "\n"
                         + "Marca: " + atual.getCarro().getMarca() + "\n"
-                        + "Ano: " + atual.getCarro().getAno() + "\n\n";
+                        + "Ano: " + sdf.format(atual.getCarro().getAno()) + "\n\n";
                 atual = atual.getProx();
             }
         }
