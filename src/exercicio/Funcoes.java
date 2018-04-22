@@ -13,7 +13,6 @@ import java.util.Scanner;
  */
 public class Funcoes {
     
-    
         // Pesquisar carro pelo modelo
     static void searchCarByModelo(ListaSimples lista) {
 
